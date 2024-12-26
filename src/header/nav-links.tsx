@@ -10,17 +10,25 @@ const NavLinks = () => {
 
   const location = useLocation();
   return (
-    <div className="flex gap-5 text-mine-shaft-300 h-full items-center">
+    <div className="flex gap-5 h-full items-center">
       {links.map((link, index) => (
         <div
           key={index}
           className={`${
             location.pathname == link.url
-              ? "border-bright-sun-400 text-bright-sun-400"
-              : "border-transparent"
-          } border-t-[1px] h-full flex items-center`}
+              ? "text-bright-sun-400"
+              : "text-mine-shaft-200"
+          } h-full flex items-center`}
         >
-          <Link to={link.url}>{link.name}</Link>
+          <Link
+            to={link.url}
+            className="relative
+             before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px]
+             before:bg-bright-sun-400 before:transition-all before:duration-300
+             hover:before:w-full before:rounded-full"
+          >
+            {link.name}
+          </Link>
         </div>
       ))}
     </div>
