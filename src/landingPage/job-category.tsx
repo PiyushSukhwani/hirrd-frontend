@@ -4,7 +4,7 @@ import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
 const JobCategory = () => {
   return (
-    <div>
+    <div className="mt-20 pb-5">
       <div className="text-4xl text-center font-semibold text-mine-shaft-100 mb-3">
         Browse <span className="text-bright-sun-400">Job</span> category
       </div>
@@ -24,7 +24,7 @@ const JobCategory = () => {
         previousControlIcon={<IconArrowLeft className="h-8 w-8" />}
       >
         {jobCategory.map((category, index) => (
-          <Carousel.Slide>
+          <Carousel.Slide key={index}>
             <div className="flex flex-col items-center w-64 gap-2 border-bright-sun-400 border p-5 rounded-xl hover:cursor-pointer hover:shadow-[0_0_5px_2px_black] !shadow-bright-sun-300 my-5 transition duration-300 ease-in-out hover:[&_button]:opacity-100">
               <div className="p-2 bg-bright-sun-300 rounded-full">
                 <img
