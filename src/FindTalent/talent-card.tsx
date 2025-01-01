@@ -25,9 +25,9 @@ const TalentCard = ({ talentData }) => {
         <IconHeart className="text-mine-shaft-300 hover:cursor-pointer" />
       </div>
       <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-lg text-xs">
-        <div>{talentData.topSkills[0]}</div>
-        <div>{talentData.topSkills[1]}</div>
-        <div>{talentData.topSkills[2]}</div>
+        {talentData.topSkills.map((skill: String, index: number) => (
+          <div key={index}>{skill}</div>
+        ))}
       </div>
       <Text
         lineClamp={3}
@@ -38,7 +38,7 @@ const TalentCard = ({ talentData }) => {
       <Divider size="xs" color="mineShaft.7" />
       <div className="flex justify-between">
         <div className="font-semibold text-mine-shaft-200">
-          &#8377;{talentData.expectedCtc}
+          {talentData.expectedCtc}
         </div>
         <div className="flex gap-1 text-xs text-mine-shaft-400 items-center">
           <IconMapPin stroke={1.5} className="h-5 w-5" /> {talentData.location}
