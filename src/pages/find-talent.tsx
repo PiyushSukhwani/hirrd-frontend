@@ -1,7 +1,6 @@
-import { Button, Divider } from "@mantine/core";
+import { Divider } from "@mantine/core";
 import SearchBar from "../FindTalent/SearchBar";
 import Talents from "../FindTalent/Talents";
-import { Link } from "react-router-dom";
 
 const FindTalent = () => {
   return (
