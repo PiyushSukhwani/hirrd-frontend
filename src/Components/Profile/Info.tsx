@@ -2,7 +2,6 @@ import { SelectInput } from "./select-input";
 import {
   IconBriefcase,
   IconCheck,
-  IconDeviceFloppy,
   IconMapPin,
   IconPencil,
   IconX,
@@ -10,12 +9,12 @@ import {
 import { ActionIcon } from "@mantine/core";
 import fields from "../../Data/Profile";
 import { useState } from "react";
-import { hasLength, isEmail, useForm } from "@mantine/form";
+import { useForm } from "@mantine/form";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { SuccessNotification } from "../../Services/NotifiationService";
 
-const Info = (props: any) => {
+const Info = () => {
   const select = fields;
   const [edit, setEdit] = useState(false);
   const profile = useSelector((state: any) => state.profile);
