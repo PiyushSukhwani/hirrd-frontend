@@ -63,7 +63,6 @@ const ResetPassword = (props: any) => {
           err.response.data.errorMessage
         );
         // setVerified(false)
-        ///251670
         console.error(err);
       });
   };

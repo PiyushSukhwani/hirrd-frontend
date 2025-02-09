@@ -1,12 +1,20 @@
 import "./App.css";
-import { createTheme, MantineProvider, Slider } from "@mantine/core";
+import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
 import "@mantine/carousel/styles.css";
-import HomePage from "./pages/home-page";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "@mantine/tiptap/styles.css";
+import "@mantine/notifications/styles.css";
+import { Notifications } from "@mantine/notifications";
+import Store from "./Store";
+import { Provider } from "react-redux";
+import AppRoutes from "./pages/AppRoutes";
 
 function App() {
   const theme = createTheme({
+    focusRing: "never",
+    primaryColor: "brightSun",
+    primaryShade: 4,
     colors: {
       brightSun: [
         "#fffbeb",
@@ -35,17 +43,16 @@ function App() {
         "#2d2d2d",
       ],
     },
+    fontFamily: "poppins, san-serif",
   });
 
   return (
-    <MantineProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<HomePage />} />
-        </Routes>
-        {/* <HomePage /> */}
-      </BrowserRouter>
-    </MantineProvider>
+    <Provider store={Store}>
+      <MantineProvider defaultColorScheme="dark" theme={theme}>
+        <Notifications position="top-center" zIndex={1000} limit={3} />
+        <AppRoutes />
+      </MantineProvider>
+    </Provider>
   );
 }
 

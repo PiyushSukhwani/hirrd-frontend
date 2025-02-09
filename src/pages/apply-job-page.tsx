@@ -1,7 +1,8 @@
 import { Button } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-import ApplyJobComp from "../ApplyJob/apply-job-comp";
+import ApplyJobComp from "../Components/ApplyJob/apply-job-comp";
+// import ApplyJobComp from "../ApplyJob/apply-job-comp";
 
 const ApplyJobPage = () => {
   return (

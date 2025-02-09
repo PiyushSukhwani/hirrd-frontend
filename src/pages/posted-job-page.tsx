@@ -1,9 +1,9 @@
-import PostedJob from "../PostedJob/posted-job";
-import PostedJobDesc from "../PostedJob/postedJob-desp";
+import PostedJob from "../Components/PostedJob/posted-job";
+import PostedJobDesc from "../Components/PostedJob/postedJob-desp";
 
 const PostedJobPage = () => {
   return (
-    <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] p-4">
+    <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] px-4">
       <div className="flex gap-5">
         <PostedJob />
         <PostedJobDesc />
