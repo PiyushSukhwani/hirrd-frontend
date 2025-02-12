@@ -6,11 +6,9 @@ import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
-import { content } from "../../Data/PostJob";
 
-
-function TextEditor() {
-    const editor = useEditor({
+function TextEditor(props: any) {
+  const editor = useEditor({
     extensions: [
       StarterKit,
       Underline,
@@ -20,7 +18,10 @@ function TextEditor() {
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    content
+    content: props.form.getValues().description,
+    onUpdate({ editor }) {
+      props.form.setFeildValue("description", editor.getHTML());
+    },
   });
 
   return (
@@ -67,7 +68,7 @@ function TextEditor() {
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
 
-      <RichTextEditor.Content bg={"mineShaft.10"}/>
+      <RichTextEditor.Content bg={"mineShaft.10"} />
     </RichTextEditor>
   );
 }

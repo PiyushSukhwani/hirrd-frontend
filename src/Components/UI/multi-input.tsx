@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   Checkbox,
-  CheckIcon,
   Combobox,
   Group,
   Input,
@@ -9,15 +8,7 @@ import {
   PillsInput,
   useCombobox,
 } from "@mantine/core";
-import { IconSearch, IconSelector } from "@tabler/icons-react";
-
-const groceries = [
-  "🍎 Apples",
-  "🍌 Bananas",
-  "🥦 Broccoli",
-  "🥕 Carrots",
-  "🍫 Chocolate",
-];
+import {  IconSelector } from "@tabler/icons-react";
 
 export function MultiInput({ optionsData }) {
   useEffect(() => {

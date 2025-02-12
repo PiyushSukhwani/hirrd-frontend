@@ -38,7 +38,7 @@ const PostedJobDesc = () => {
             <div className="mt-10 flex flex-wrap gap-5 justify-around">
               {talents.map(
                 (talent, index: number) =>
-                  index < 6 && <TalentCard talentData={talent} invited posted={false} />
+                  index < 6 && <TalentCard talentData={talent} invited posted={false} key={index} />
               )}
             </div>
           </Tabs.Panel>
