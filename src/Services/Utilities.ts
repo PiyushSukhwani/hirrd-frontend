@@ -16,12 +16,20 @@ const timeAgo = (time: string | Date): string => {
   const hours = Math.floor(minutes / 60);
   if (hours < 24) return `${hours} hours ago`;
   const days = Math.floor(hours / 24);
-  if (days < 30) return `${days} days ago`;
+  if (days < 30) return `${days} ${days > 1 ? "days ago" : "day ago"}`;
   const months = Math.floor(days / 30);
   if (months < 12) return `${months} months ago`;
   const years = Math.floor(months / 12);
   return `${years} years ago`;
 };
 
+const getBase64 = (file: any) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
 
-export { formatDate, timeAgo };
+export { formatDate, timeAgo, getBase64 };

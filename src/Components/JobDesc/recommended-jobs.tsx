@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-// import { jobList } from "../../Data/JobsData";
 import JobCard from "../FindJobs/job-card";
 import { useEffect, useState } from "react";
 import { getAllJobs } from "../../Services/JobService";
@@ -20,7 +19,7 @@ const RecommendedJobs = () => {
       <div className="flex flex-col flex-wrap gap-5">
         {jobList?.map(
           (job: any, index: number) =>
-            index < 6 && job.id != id && <JobCard {...job} />
+            index < 6 && job.id != id && <JobCard key={index} {...job}/>
         )}
       </div>
     </div>

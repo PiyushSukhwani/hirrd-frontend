@@ -18,7 +18,7 @@ const JobCard = (props: any) => {
             <div className="font-semibold">{props.jobTitle}</div>
             <div className="text-xs text-mine-shaft-300">
               {props.company} &#x2022;{" "}
-              {props.applicants ? props.applicants.size.length : 0} Applicants
+              {props.applicants ? props.applicants.length : 0} Applicants
             </div>
           </div>
         </div>

@@ -10,8 +10,6 @@ const Jobs = () => {
     getAllJobs()
       .then((res) => {
         setjobList(res);
-        console.log(res);
-        
       })
       .catch((err) => console.log(err));
   }, []);
