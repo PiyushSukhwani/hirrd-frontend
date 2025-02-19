@@ -20,8 +20,8 @@ const Jobs = () => {
         <div className="text-2xl font-semibold">Recommended Jobs</div>
         <Sort />
       </div>
-      <div className="mt-10 flex flex-wrap gap-16 items-center justify-center">
-        {jobList?.map((job:any, index:number) => (
+      <div className="mt-10 flex flex-wrap xl:gap-16 items-center justify-start xl:pl-8 lg:pl-6 lg:gap-10 gap-14 pl-10">
+        {jobList?.map((job: any, index: number) => (
           <JobCard key={index} {...job} />
         ))}
       </div>

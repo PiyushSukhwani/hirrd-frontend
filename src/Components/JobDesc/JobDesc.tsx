@@ -1,13 +1,46 @@
 import { ActionIcon, Button, Divider } from "@mantine/core";
-import { IconBookmark } from "@tabler/icons-react";
+import { IconBookmark, IconBookmarkFilled } from "@tabler/icons-react";
 import { card } from "../../Data/JobDescData";
 //@ts-ignore
 import DOMPurify from "dompurify";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { timeAgo } from "../../Services/Utilities";
+import { useDispatch, useSelector } from "react-redux";
+import { changeProfile } from "../../Slices/ProfileSlice";
+import { useEffect, useState } from "react";
 
 const JobDesc = (props: any) => {
   const data = DOMPurify.sanitize(props.description);
+  const profile = useSelector((state: any) => state.profile);
+  const user = useSelector((state: any) => state.user);
+  const dispatch = useDispatch();
+  const [applied, setApplied] = useState(false);
+
+  const handleSaveJob = () => {
+    let savedJobs: any[] = Array.isArray(profile.savedJobs)
+      ? [...profile.savedJobs]
+      : [];
+
+    if (savedJobs?.includes(props.id)) {
+      savedJobs = savedJobs?.filter((id: any) => id !== props.id);
+    } else {
+      savedJobs = [...savedJobs, props.id];
+    }
+    let updatedProfile = { ...profile, savedJobs: savedJobs };
+    dispatch(changeProfile(updatedProfile));
+  };
+
+  useEffect(() => {
+    if (
+      props.applicants?.filter((applicant: any) => applicant.applicantId == user.id)
+        .length > 0
+    ) {
+      setApplied(true);
+    } else {
+      setApplied(false)
+    }
+  }, [props]);
+
   return (
     <div className="w-2/3">
       <div className="flex justify-between">
@@ -24,17 +57,32 @@ const JobDesc = (props: any) => {
           </div>
         </div>
         <div className="flex flex-col gap-2 items-center">
-          <Link to={`/apply-job/${props?.id}`}>
-            <Button color="brightSun.4" variant="light">
-              {props.edit ? "Edit" : "Apply"}
+          { (props.edit || !applied) &&
+            <Link to={`/apply-job/${props?.id}`}>
+              <Button color="brightSun.4" variant="light">
+                {props.edit ? "Edit" : "Apply"}
+              </Button>
+            </Link>
+          }
+          {applied && (
+            <Button color="green.8" variant="light" size="sm">
+              Applied
             </Button>
-          </Link>
+          )}
           {props.edit ? (
             <Button color="red.5" variant="outline">
               Delete
             </Button>
+          ) : profile.savedJobs?.includes(props.id) ? (
+            <IconBookmarkFilled
+              onClick={handleSaveJob}
+              className=" hover:cursor-pointer text-bright-sun-400"
+            />
           ) : (
-            <IconBookmark className="text-bright-sun-400 hover:cursor-pointer" />
+            <IconBookmark
+              onClick={handleSaveJob}
+              className="text-mine-shaft-300 hover:cursor-pointer hover:text-bright-sun-400"
+            />
           )}
         </div>
       </div>
