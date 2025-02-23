@@ -3,17 +3,17 @@ import JobDesc from "../JobDesc/JobDesc";
 import { talents } from "../../Data/TalentData";
 import TalentCard from "../FindTalent/talent-card";
 
-const PostedJobDesc = () => {
+const PostedJobDesc = (props: any) => {
   return (
     <div className="mt-5 w-3/4 px-5">
       <div className="text-2xl font-semibold flex items-center">
-        Software Engineer{" "}
+        {props.jobTitle}{" "}
         <Badge variant="light" color="brightSun.4" ml={"sm"} size="sm">
-          Badge
+          {props.jobStatus}
         </Badge>{" "}
       </div>
       <div className="font-medium text-mine-shaft-300 mb-5">
-        New York, United States
+        {props.location}
       </div>
       <div>
         <Tabs variant="outline" radius="lg" defaultValue="first">
@@ -21,16 +21,25 @@ const PostedJobDesc = () => {
             <Tabs.Tab value="overview">Overview</Tabs.Tab>
             <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
             <Tabs.Tab value="invited">Invited</Tabs.Tab>
+            <Tabs.Tab value="offered">Offered</Tabs.Tab>
+            <Tabs.Tab value="rejected">Rejected</Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="overview" className="[&>div]:w-full">
-            <JobDesc edit />
+            <JobDesc edit {...props} />
           </Tabs.Panel>
           <Tabs.Panel value="applicants">
             <div className="mt-10 flex flex-wrap gap-5 justify-around">
               {talents.map(
                 (talent, index: number) =>
-                  index < 6 && <TalentCard talentData={talent} posted invited={false} key={index}/>
+                  index < 6 && (
+                    <TalentCard
+                      talentData={talent}
+                      posted
+                      invited={false}
+                      key={index}
+                    />
+                  )
               )}
             </div>
           </Tabs.Panel>
@@ -38,7 +47,14 @@ const PostedJobDesc = () => {
             <div className="mt-10 flex flex-wrap gap-5 justify-around">
               {talents.map(
                 (talent, index: number) =>
-                  index < 6 && <TalentCard talentData={talent} invited posted={false} key={index} />
+                  index < 6 && (
+                    <TalentCard
+                      talentData={talent}
+                      invited
+                      posted={false}
+                      key={index}
+                    />
+                  )
               )}
             </div>
           </Tabs.Panel>

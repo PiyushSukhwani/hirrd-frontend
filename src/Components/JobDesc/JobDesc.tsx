@@ -32,12 +32,13 @@ const JobDesc = (props: any) => {
 
   useEffect(() => {
     if (
-      props.applicants?.filter((applicant: any) => applicant.applicantId == user.id)
-        .length > 0
+      props.applicants?.filter(
+        (applicant: any) => applicant.applicantId == user.id
+      ).length > 0
     ) {
       setApplied(true);
     } else {
-      setApplied(false)
+      setApplied(false);
     }
   }, [props]);
 
@@ -57,14 +58,14 @@ const JobDesc = (props: any) => {
           </div>
         </div>
         <div className="flex flex-col gap-2 items-center">
-          { (props.edit || !applied) &&
+          {(props.edit || !applied) && (
             <Link to={`/apply-job/${props?.id}`}>
               <Button color="brightSun.4" variant="light">
                 {props.edit ? "Edit" : "Apply"}
               </Button>
             </Link>
-          }
-          {applied && (
+          )}
+          {applied && !props.edit && (
             <Button color="green.8" variant="light" size="sm">
               Applied
             </Button>
