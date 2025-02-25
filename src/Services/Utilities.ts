@@ -32,4 +32,37 @@ const getBase64 = (file: any) => {
   });
 };
 
-export { formatDate, timeAgo, getBase64 };
+function formatInterviewTime(dateString: any) {
+  const date = new Date(dateString);
+  return date.toLocaleString("en-US", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
+function openResume(base64String:string) {
+  // Remove 'data:application/pdf;base64,' if present
+  const base64WithoutPrefix = base64String.split(',').pop();
+
+  // Convert Base64 to binary
+  const byteCharacters = atob(base64WithoutPrefix);
+  const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i));
+  const byteArray = new Uint8Array(byteNumbers);
+
+  // Create a Blob
+  const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+  // Generate URL & Open in new tab
+  const blobUrl = URL.createObjectURL(blob);
+  console.log(blobUrl);
+
+  window.open(blobUrl, '_blank');
+}
+
+
+
+export { formatDate, timeAgo, getBase64, formatInterviewTime, openResume };

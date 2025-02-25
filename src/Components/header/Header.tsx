@@ -1,5 +1,5 @@
 import { Button, Indicator } from "@mantine/core";
-import { IconBell, IconSettings } from "@tabler/icons-react";
+import { IconBell } from "@tabler/icons-react";
 import NavLinks from "./nav-links";
 import { Link, useLocation } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
@@ -13,7 +13,7 @@ const Header = () => {
     <div className="w-full bg-mine-shaft-950 px-6 text-white h-24 flex justify-between items-center font-['poppins']">
       <div className="flex gap-3 items-center">
         <Link to={"/"}>
-          <img src="./logo_golden.png" alt="LOGO" className="h-14 w-24" />
+          <img src="/logo_golden.png" alt="LOGO" className="h-14 w-24" />
         </Link>
       </div>
       {<NavLinks />}

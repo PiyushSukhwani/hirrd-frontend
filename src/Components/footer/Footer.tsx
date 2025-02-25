@@ -13,7 +13,7 @@ const Footer = () => {
     <div className="pt-20 pb-5 flex gap-5 justify-around bg-mine-shaft-950 font-['poppins']">
       <div className="w-1/4 flex flex-col gap-4">
         <div className="flex gap-1 items-center">
-          <img src="./logo_golden.png" alt="LOGO" className="h-12 w-20" />
+          <img src="/logo_golden.png" alt="LOGO" className="h-12 w-20" />
         </div>
         <div className="text-sm text-mine-shaft-300">
           Job portal with user profilesm skill updates, certifications, work

@@ -1,10 +1,7 @@
 import { useState } from "react";
 import {
-  Button,
   Combobox,
   useCombobox,
-  Text,
-  Box,
   ActionIcon,
 } from "@mantine/core";
 import { IconAdjustments } from "@tabler/icons-react";

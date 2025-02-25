@@ -9,7 +9,7 @@ import {
   rem,
   TextInput,
 } from "@mantine/core";
-import { IconAt, IconCheck, IconLock, IconX } from "@tabler/icons-react";
+import { IconAt, IconCheck, IconLock } from "@tabler/icons-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../Services/UserService";

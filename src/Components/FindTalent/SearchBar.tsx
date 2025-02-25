@@ -17,7 +17,7 @@ const SearchBar = () => {
       {searchFields.map((item, index) => (
          <React.Fragment key={index}>
          <div className="w-1/5">
-           <MultiInput optionsData={item} />
+           <MultiInput optionsData={item} key={index} />
          </div>
          <Divider size="xs" orientation="vertical" mr="xs" />
        </React.Fragment>
