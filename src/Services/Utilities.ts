@@ -44,25 +44,25 @@ function formatInterviewTime(dateString: any) {
   });
 }
 
-function openResume(base64String:string) {
-  // Remove 'data:application/pdf;base64,' if present
-  const base64WithoutPrefix = base64String.split(',').pop();
+function openResume(base64String: string) {
+  try {
+    if (!base64String) {
+      console.error('No Base64 string provided.');
+      return;
+    }
 
-  // Convert Base64 to binary
-  const byteCharacters = atob(base64WithoutPrefix);
-  const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i));
-  const byteArray = new Uint8Array(byteNumbers);
+    const byteCharacters = atob(base64String);
+    const byteArray = new Uint8Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteArray[i] = byteCharacters.charCodeAt(i);
+    }
 
-  // Create a Blob
-  const blob = new Blob([byteArray], { type: 'application/pdf' });
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
 
-  // Generate URL & Open in new tab
-  const blobUrl = URL.createObjectURL(blob);
-  console.log(blobUrl);
-
-  window.open(blobUrl, '_blank');
-}
-
-
+    const blobUrl = URL.createObjectURL(blob);
+    window.open(blobUrl, '_blank');
+  } catch (error) {
+    console.error('Error opening PDF:', error);
+  }
 
 export { formatDate, timeAgo, getBase64, formatInterviewTime, openResume };
