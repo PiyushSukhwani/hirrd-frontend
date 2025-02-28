@@ -1,11 +1,23 @@
-import { Button, Divider } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Profile from "../Components/TalentProfile/Profile";
-import { profile } from "../Data/TalentData";
 import RecommendedTalent from "../Components/TalentProfile/recommended-talent";
+import { useEffect, useState } from "react";
+import { getProfile } from "../Services/ProfileService";
 
 const TalentProfile = () => {
+  const { id } = useParams();
+  const [profile, setProfile] = useState<any>({});
+
+  useEffect(() => {
+    getProfile(id)
+      .then((res) => {
+        setProfile(res);
+      })
+      .catch((e) => console.error(e));
+  }, [id]);
+
   return (
     <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] p-4">
       <Link to="/find-talent" className="my-5 inline-block">
@@ -18,7 +30,7 @@ const TalentProfile = () => {
         </Button>
       </Link>
       <div className="flex gap-5">
-        <Profile profileData={profile} />
+        <Profile {...profile} />
         <RecommendedTalent />
       </div>
     </div>
