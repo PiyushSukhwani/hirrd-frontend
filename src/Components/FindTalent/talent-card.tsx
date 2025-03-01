@@ -20,6 +20,7 @@ const TalentCard = (props: any) => {
   const ref = useRef<HTMLInputElement>(null);
   const [profile, setProfile] = useState<any>({});
   const { id } = useParams();
+  
 
   useEffect(() => {
     if (props.applicantId) {
@@ -44,7 +45,7 @@ const TalentCard = (props: any) => {
       interview = { ...interview, interviewTime: date };
     }
     changeApplStatus(interview)
-      .then((res) => {
+      .then(() => {
         if (status == "INTERVIEWING") {
           SuccessNotification(
             "Interview Scheduled",
