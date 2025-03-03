@@ -6,8 +6,13 @@ import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
+import { useEffect } from "react";
 
 function TextEditor(props: any) {
+  useEffect(() => {
+    editor?.commands.setContent(props.data);
+  }, [props.data]);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -20,7 +25,7 @@ function TextEditor(props: any) {
     ],
     content: props.form.getValues().description,
     onUpdate({ editor }) {
-      props.form.setFeildValue("description", editor.getHTML());
+      props.form.setFieldValue("description", editor.getHTML());
     },
   });
 

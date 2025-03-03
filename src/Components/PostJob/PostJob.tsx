@@ -3,18 +3,36 @@ import { content, fields } from "../../Data/PostJob";
 import { SelectInput } from "../UI/select-input";
 import TextEditor from "../UI/text-editor";
 import { isNotEmpty, useForm } from "@mantine/form";
-import { postJob } from "../../Services/JobService";
+import { getJob, postJob } from "../../Services/JobService";
 import {
   ErrorNotification,
   SuccessNotification,
 } from "../../Services/NotifiationService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const PostJob = () => {
   const select = [...fields];
   const navigate = useNavigate();
   const profile = useSelector((state: any) => state.profile);
+  const { id } = useParams();
+  const [editorData, setEditorData] = useState(content);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (Number(id) != 0) {
+      getJob(id)
+        .then((res) => {
+          form.setValues(res);
+          setEditorData(res.description);
+        })
+        .catch((err) => console.error(err));
+    } else {
+      form.reset();
+    }
+  }, [id]);
 
   const form = useForm({
     mode: "controlled",
@@ -59,7 +77,12 @@ const PostJob = () => {
   };
 
   const handleDraft = () => {
-    postJob({ ...form.getValues(), posterId: profile.id, jobStatus: "DRAFT" })
+    postJob({
+      ...form.getValues(),
+      posterId: profile.id,
+      id,
+      jobStatus: "DRAFT",
+    })
       .then((res: any) => {
         console.log(res);
 
@@ -119,7 +142,7 @@ const PostJob = () => {
           <div className="text-sm font-medium">
             Job Description <span className="text-red-500">*</span>{" "}
           </div>
-          <TextEditor form={form} />
+          <TextEditor form={form} data={editorData} />
         </div>
         <div className="flex gap-4">
           <Button color="brightSun.4" variant="light" onClick={handlePost}>

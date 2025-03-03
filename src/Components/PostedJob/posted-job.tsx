@@ -22,6 +22,7 @@ const PostedJob = (props: any) => {
           <Tabs.List className=" font-medium [&_button[aria-selected='false']]:bg-mine-shaft-900">
             <Tabs.Tab value="ACTIVE">Active [{props.jobList?.filter((job:any) => job?.jobStatus == "ACTIVE").length}]</Tabs.Tab>
             <Tabs.Tab value="DRAFT">Draft [{props.jobList?.filter((job:any) => job?.jobStatus == "DRAFT").length}]</Tabs.Tab>
+            <Tabs.Tab value="CLOSED">Closed [{props.jobList?.filter((job:any) => job?.jobStatus == "CLOSED").length}]</Tabs.Tab>
           </Tabs.List>
         </Tabs>
       </div>
