@@ -20,7 +20,6 @@ const TalentCard = (props: any) => {
   const ref = useRef<HTMLInputElement>(null);
   const [profile, setProfile] = useState<any>({});
   const { id } = useParams();
-  
 
   useEffect(() => {
     if (props.applicantId) {
@@ -115,7 +114,9 @@ const TalentCard = (props: any) => {
         </div>
       ) : (
         <div className="flex justify-between">
-          <div className="font-semibold text-mine-shaft-200">23 LPA</div>
+          <div className="font-normal text-mine-shaft-300">
+            Exp: {props.totalExp} Years
+          </div>
           <div className="flex gap-1 text-xs text-mine-shaft-400 items-center">
             <IconMapPin stroke={1.5} className="h-5 w-5" /> {profile.location}
           </div>

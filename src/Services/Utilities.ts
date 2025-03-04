@@ -47,7 +47,7 @@ function formatInterviewTime(dateString: any) {
 function openResume(base64String: string) {
   try {
     if (!base64String) {
-      console.error('No Base64 string provided.');
+      console.error("No Base64 string provided.");
       return;
     }
 
@@ -57,12 +57,13 @@ function openResume(base64String: string) {
       byteArray[i] = byteCharacters.charCodeAt(i);
     }
 
-    const blob = new Blob([byteArray], { type: 'application/pdf' });
+    const blob = new Blob([byteArray], { type: "application/pdf" });
 
     const blobUrl = URL.createObjectURL(blob);
-    window.open(blobUrl, '_blank');
+    window.open(blobUrl, "_blank");
   } catch (error) {
-    console.error('Error opening PDF:', error);
+    console.error("Error opening PDF:", error);
   }
+}
 
 export { formatDate, timeAgo, getBase64, formatInterviewTime, openResume };
