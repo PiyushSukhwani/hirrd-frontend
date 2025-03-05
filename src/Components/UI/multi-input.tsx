@@ -8,11 +8,15 @@ import {
   PillsInput,
   useCombobox,
 } from "@mantine/core";
-import {  IconSelector } from "@tabler/icons-react";
+import { IconSelector } from "@tabler/icons-react";
+import { useDispatch } from "react-redux";
+import { updateFilter } from "../../Slices/FilterSlice";
 
-export function MultiInput({ optionsData }) {
+export function MultiInput(props: any) {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setData(optionsData.options);
+    setData(props.options);
   }, []);
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -31,17 +35,27 @@ export function MultiInput({ optionsData }) {
     if (val === "$create") {
       setData((current) => [...current, search]);
       setValue((current) => [...current, search]);
+      dispatch(updateFilter({ [props.title]: [...value, search] }));
     } else {
       setValue((current) =>
         current.includes(val)
           ? current.filter((v) => v !== val)
           : [...current, val]
       );
+      dispatch(
+        updateFilter({
+          [props.title]: value.includes(val)
+            ? value.filter((v) => v != val)
+            : [...value, val],
+        })
+      );
     }
   };
 
-  const handleValueRemove = (val: string) =>
+  const handleValueRemove = (val: string) => {
     setValue((current) => current.filter((v) => v !== val));
+    dispatch(updateFilter({ [props.title]: value.filter((v) => v != val) }));
+  };
 
   const values = value.slice(0, 1).map((item) => (
     <Pill key={item} withRemoveButton onRemove={() => handleValueRemove(item)}>
@@ -81,7 +95,7 @@ export function MultiInput({ optionsData }) {
           onClick={() => combobox.toggleDropdown()}
           leftSection={
             <div className="text-bright-sun-400 p-1 bg-mine-shaft-900 rounded-full mr-2">
-              <optionsData.icon />
+              <props.icon />
             </div>
           }
         >
@@ -93,7 +107,7 @@ export function MultiInput({ optionsData }) {
               </>
             ) : (
               <Input.Placeholder className="text-mine-shaft-300">
-                {optionsData.title}
+                {props.title}
               </Input.Placeholder>
             )}
           </Pill.Group>
@@ -104,9 +118,9 @@ export function MultiInput({ optionsData }) {
         <Combobox.Search
           value={search}
           onChange={(event) => setSearch(event.currentTarget.value)}
-          placeholder="Search groceries"
+          placeholder={`Search ${props.title}`}
         />
-        <Combobox.Options>
+        <Combobox.Options style={{ maxHeight: "310px", overflowY: "auto" }}>
           {options}
 
           {!exactOptionMatch && search.trim().length > 0 && (
