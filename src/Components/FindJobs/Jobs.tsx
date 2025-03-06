@@ -2,17 +2,87 @@ import { useEffect, useState } from "react";
 import Sort from "../UI/Sort";
 import JobCard from "./job-card";
 import { getAllJobs } from "../../Services/JobService";
+import { useDispatch, useSelector } from "react-redux";
+import { resetFilter } from "../../Slices/FilterSlice";
+import { current } from "@reduxjs/toolkit";
 
 const Jobs = () => {
   const [jobList, setjobList] = useState([]);
+  const filter = useSelector((state: any) => state.filter);
+  const sort = useSelector((state: any) => state.sort);
+  const [filteredJobsList, setFilteredJobsList] = useState<any>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(resetFilter());
+    window.scrollTo(0, 0);
+
     getAllJobs()
       .then((res) => {
-        setjobList(res);
+        setjobList(res.filter((job: any) => job.jobStatus === "ACTIVE"));
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (sort === "Most Recent") {
+      let jobs = filteredJobsList
+      setFilteredJobsList(() =>
+        [...jobs].sort(
+          (a: any, b: any) =>
+            new Date(a.postTime).getTime() - new Date(b.postTime).getTime()
+        )
+      );
+    }
+  }, [sort]);
+  
+  
+
+  useEffect(() => {
+    let filterJobs = jobList;
+    console.log(sort);
+
+    if (filter["Job Title"] && filter["Job Title"].length > 0) {
+      filterJobs = filterJobs.filter((job: any) =>
+        filter["Job Title"]?.some((title: any) =>
+          job.jobTitle.toLowerCase().includes(title.toLowerCase())
+        )
+      );
+    }
+    if (filter["Job Type"] && filter["Job Type"].length > 0) {
+      filterJobs = filterJobs.filter((job: any) =>
+        filter["Job Type"]?.some((title: any) =>
+          job.jobType.toLowerCase().includes(title.toLowerCase())
+        )
+      );
+    }
+
+    if (filter.Location && filter.Location.length > 0) {
+      filterJobs = filterJobs.filter((job: any) =>
+        filter.Location.some((location: string) =>
+          job.location.toLowerCase().includes(location.toLowerCase())
+        )
+      );
+    }
+
+    if (filter.Experience && filter.Experience.length > 0) {
+      filterJobs = filterJobs.filter((job: any) =>
+        filter.Experience.some((filterExp: any) =>
+          job?.experience.toLowerCase().includes(filterExp.toLowerCase())
+        )
+      );
+    }
+
+    if (filter.Salary && filter.Salary?.length > 0) {
+      filterJobs = filterJobs?.filter(
+        (job: any) =>
+          job.packageOffered >= filter.Salary[0] &&
+          job.packageOffered <= filter.Salary[1]
+      );
+    }
+
+    setFilteredJobsList(filterJobs);
+  }, [filter, jobList, sort]);
 
   return (
     <div className="p-5">
@@ -21,7 +91,7 @@ const Jobs = () => {
         <Sort />
       </div>
       <div className="mt-10 flex flex-wrap xl:gap-16 items-center justify-start xl:pl-8 lg:pl-6 lg:gap-10 gap-14 pl-10">
-        {jobList?.map((job: any, index: number) => (
+        {filteredJobsList?.map((job: any, index: number) => (
           <JobCard key={index} {...job} />
         ))}
       </div>

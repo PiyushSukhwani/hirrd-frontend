@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import Sort from "../UI/Sort";
 import TalentCard from "./talent-card";
 import { getAllProfiles } from "../../Services/ProfileService";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetFilter } from "../../Slices/FilterSlice";
 
 const Talents = () => {
   const [talents, setTalents] = useState<any>([]);
   const filter = useSelector((state: any) => state.filter);
   const [filteredTalents, setFilteredTalents] = useState<any>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(resetFilter());
     window.scrollTo(0, 0);
     getAllProfiles()
       .then((res) => setTalents(res))
