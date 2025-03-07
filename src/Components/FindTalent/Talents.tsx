@@ -4,20 +4,35 @@ import TalentCard from "./talent-card";
 import { getAllProfiles } from "../../Services/ProfileService";
 import { useDispatch, useSelector } from "react-redux";
 import { resetFilter } from "../../Slices/FilterSlice";
+import { resetSort } from "../../Slices/SortSlice";
 
 const Talents = () => {
   const [talents, setTalents] = useState<any>([]);
   const filter = useSelector((state: any) => state.filter);
+  const sort = useSelector((state: any) => state.sort);
   const [filteredTalents, setFilteredTalents] = useState<any>([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(resetFilter());
+    dispatch(resetSort());
     window.scrollTo(0, 0);
     getAllProfiles()
       .then((res) => setTalents(res))
       .catch((err) => console.error(err));
   }, []);
+
+  useEffect(() => {
+    if (sort == "Experience: Low to High") {
+      setTalents(() =>
+        [...talents].sort((a: any, b: any) => a.totalExp - b.totalExp)
+      );
+    } else {
+      setTalents(() =>
+        [...talents].sort((a: any, b: any) => b.totalExp - a.totalExp)
+      );
+    }
+  }, [sort]);
 
   useEffect(() => {
     let filterTalent = talents;
@@ -68,7 +83,7 @@ const Talents = () => {
     <div className="p-5">
       <div className="flex justify-between">
         <div className="text-2xl font-semibold">Recommended Jobs</div>
-        <Sort />
+        <Sort sort="talent" />
       </div>
       <div className="mt-10 flex flex-wrap gap-5 justify-evenly">
         {filteredTalents.length ? (

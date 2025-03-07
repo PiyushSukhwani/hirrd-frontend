@@ -1,25 +1,24 @@
 import { useState } from "react";
-import {
-  Combobox,
-  useCombobox,
-  ActionIcon,
-} from "@mantine/core";
+import { Combobox, useCombobox, ActionIcon } from "@mantine/core";
 import { IconAdjustments } from "@tabler/icons-react";
+import { useDispatch } from "react-redux";
+import { updateSort } from "../../Slices/SortSlice";
 
-const opt = [
-  "Relevance",
-  "Most Recent",
-  "Salary (Low to High)",
-  "Salary (High to Low)",
+const opt = ["Most Recent", "Salary Low to High", "Salary High to Low"];
+
+const talentSort = [
+  "Experience: Low to High",
+  "Experience: High to Low",
 ];
 
-function Sort() {
-  const [selectedItem, setSelectedItem] = useState<string | null>("Relevance");
+function Sort(props:any) {
+  const [selectedItem, setSelectedItem] = useState<string | null>("filters");
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
+  const dispatch = useDispatch();
 
-  const options = opt.map((item) => (
+  const options = (props.sort === "jobs" ? opt : talentSort).map((item) => (
     <Combobox.Option value={item} key={item} className="text-xs">
       {item}
     </Combobox.Option>
@@ -32,6 +31,7 @@ function Sort() {
       position="bottom-start"
       onOptionSubmit={(val) => {
         setSelectedItem(val);
+        dispatch(updateSort(val));
         combobox.closeDropdown();
       }}
     >
@@ -47,7 +47,10 @@ function Sort() {
             variant="transparent"
             aria-label="Setting"
           >
-            <IconAdjustments style={{width:"70%", height:"70%"}} stroke={1.5} />
+            <IconAdjustments
+              style={{ width: "70%", height: "70%" }}
+              stroke={1.5}
+            />
           </ActionIcon>
         </div>
       </Combobox.Target>
