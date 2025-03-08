@@ -76,9 +76,9 @@ const TalentCard = (props: any) => {
           <div className="p-2 bg-mine-shaft-800 rounded-full">
             <Avatar
               src={
-                profile.picture
-                  ? `data:image/jpeg;base64,${profile.picture}`
-                  : "/Avatar.png"
+                profile.picture && atob(profile.picture) !== "null"
+    ? `data:image/jpeg;base64, ${profile.picture}`
+    : "/avatar.png"
               }
               size={"lg"}
               alt="profile picture"

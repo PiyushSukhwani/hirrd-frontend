@@ -10,6 +10,7 @@ const Talents = () => {
   const [talents, setTalents] = useState<any>([]);
   const filter = useSelector((state: any) => state.filter);
   const sort = useSelector((state: any) => state.sort);
+  const profile = useSelector((state: any) => state.profile);
   const [filteredTalents, setFilteredTalents] = useState<any>([]);
   const dispatch = useDispatch();
 
@@ -87,9 +88,10 @@ const Talents = () => {
       </div>
       <div className="mt-10 flex flex-wrap gap-5 justify-evenly">
         {filteredTalents.length ? (
-          filteredTalents.map((talent: any, index: number) => (
-            <TalentCard {...talent} key={index} />
-          ))
+          filteredTalents.map(
+            (talent: any, index: number) =>
+              talent.id != profile.id && <TalentCard {...talent} key={index} />
+          )
         ) : (
           <div className="text-bright-sun-400 font-semibold text-3xl">
             No Talent found.

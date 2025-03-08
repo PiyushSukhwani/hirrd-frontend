@@ -157,6 +157,7 @@ const SignUp = () => {
           value={data.confirmPassword}
           onChange={handleChange}
           withAsterisk
+          onPaste={(e)=> e.preventDefault()}
         />
         <Radio.Group
           value={data.accountType}

@@ -1,5 +1,5 @@
 import { Button, Divider } from "@mantine/core";
-import { IconBriefcase, IconMapPin } from "@tabler/icons-react";
+import { IconAward, IconBriefcase, IconMapPin } from "@tabler/icons-react";
 import ExpCard from "./ExpCard";
 import CertificateCard from "./CertificateCard";
 import { useEffect, useState } from "react";
@@ -25,9 +25,9 @@ const Profile = () => {
         <img src="/Profile/banner.jpg" alt="banner" className="rounded-t-2xl" />
         <img
           src={
-            profile.picture
-              ? `data:image/jpeg;base64, ${profile.picture}`
-              : "/avatar.png"
+            profile.picture && atob(profile.picture) !== "null"
+    ? `data:image/jpeg;base64, ${profile.picture}`
+    : "/avatar.png"
           }
           alt="banner"
           className="rounded-full !h-48 !w-48 object-cover absolute -bottom-1/3 left-3 border-mine-shaft-950 border-8"
@@ -47,6 +47,10 @@ const Profile = () => {
         <div className="text-lg flex gap-1 items-center text-mine-shaft-300">
           <IconMapPin className="h-5 w-5" stroke={1.5} />
           {profile?.location}
+        </div>
+        <div className="text-lg flex gap-1 items-center text-mine-shaft-300">
+          <IconAward className="h-5 w-5" stroke={1.5} />
+          Experience: {profile?.totalExp} Years
         </div>
       </div>
       <Divider mx="xs" my="xl" />

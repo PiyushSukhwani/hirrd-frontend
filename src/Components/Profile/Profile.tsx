@@ -44,9 +44,9 @@ const Profile = () => {
         >
           <Avatar
             src={
-              profile.picture
-                ? `data:image/jpeg;base64, ${profile.picture}`
-                : "/avatar.png"
+              profile.picture && atob(profile.picture) !== "null"
+    ? `data:image/jpeg;base64, ${profile.picture}`
+    : "/avatar.png"
             }
             alt="banner"
             className="rounded-full !h-48 !w-48 border-mine-shaft-950 border-8"

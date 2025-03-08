@@ -113,6 +113,7 @@ const Login = () => {
           error={formError.password}
           onChange={handleChange}
           withAsterisk
+          onPaste={(e)=> e.preventDefault()}
         />
         <Button
           loading={loading}

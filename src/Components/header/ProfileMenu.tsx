@@ -51,9 +51,9 @@ const ProfileMenu = () => {
         <div className="flex items-center gap-2 cursor-pointer">
           <div>{user?.name}</div>
           <Avatar src={
-              profile.picture
-                ? `data:image/jpeg;base64, ${profile.picture}`
-                : "/avatar.png"
+               profile.picture && atob(profile.picture) !== "null"
+               ? `data:image/jpeg;base64, ${profile.picture}`
+               : "/avatar.png"
             } alt="it is me" />
         </div>
       </Menu.Target>

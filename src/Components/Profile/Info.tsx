@@ -1,12 +1,13 @@
 import { SelectInput } from "./select-input";
 import {
+  IconAward,
   IconBriefcase,
   IconCheck,
   IconMapPin,
   IconPencil,
   IconX,
 } from "@tabler/icons-react";
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, NumberInput } from "@mantine/core";
 import fields from "../../Data/Profile";
 import { useState } from "react";
 import { useForm } from "@mantine/form";
@@ -28,6 +29,7 @@ const Info = () => {
         jobTitle: profile.jobTitle,
         company: profile.company,
         location: profile.location,
+        totalExp: profile.totalExp,
       });
     } else {
       setEdit(false);
@@ -36,7 +38,7 @@ const Info = () => {
 
   const form = useForm({
     mode: "uncontrolled",
-    initialValues: { jobTitle: "", company: "", location: "" },
+    initialValues: { jobTitle: "", company: "", location: "", totalExp: 0 },
   });
 
   const handleSave = () => {
@@ -64,7 +66,7 @@ const Info = () => {
             )}
             <ActionIcon
               variant="subtle"
-              color={edit ? "red.8" :"brightSun.4"}
+              color={edit ? "red.8" : "brightSun.4"}
               size={"lg"}
               onClick={() => handleClick()}
             >
@@ -82,7 +84,18 @@ const Info = () => {
               <SelectInput {...select[0]} form={form} name="jobTitle" />
               <SelectInput {...select[1]} form={form} name="company" />
             </div>
-            <SelectInput {...select[2]} form={form} name="location" />
+            <div className="flex gap-10 [&>*]:w-1/2">
+              <SelectInput {...select[2]} form={form} name="location" />
+              <NumberInput
+                {...form.getInputProps("totalExp")}
+                label="Experience"
+                withAsterisk
+                hideControls
+                min={0}
+                max={50}
+                clampBehavior="strict"
+              />
+            </div>
           </>
         ) : (
           <>
@@ -93,6 +106,10 @@ const Info = () => {
             <div className="text-lg flex gap-1 items-center text-mine-shaft-300">
               <IconMapPin className="h-5 w-5" stroke={1.5} />
               {profile?.location}
+            </div>
+            <div className="text-lg flex gap-1 items-center text-mine-shaft-300">
+              <IconAward className="h-5 w-5" stroke={1.5} />
+              Experience: {profile?.totalExp ? profile.totalExp : 0} Years
             </div>
           </>
         )}
