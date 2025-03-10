@@ -50,7 +50,6 @@ const Jobs = () => {
 
   useEffect(() => {
     let filterJobs = jobList;
-    console.log(sort);
 
     if (filter["Job Title"] && filter["Job Title"].length > 0) {
       filterJobs = filterJobs.filter((job: any) =>
