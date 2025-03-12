@@ -10,7 +10,7 @@ import {
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../../Slices/UserSlice";
 import { getProfile } from "../../Services/ProfileService";
 import { setProfile } from "../../Slices/ProfileSlice";
@@ -19,18 +19,17 @@ const ProfileMenu = () => {
   const [checked, setChecked] = useState(false);
   const [opened, setOpened] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state:any) => state.user);
-  const profile = useSelector((state:any) => state.profile)
+  const user = useSelector((state: any) => state.user);
+  const profile = useSelector((state: any) => state.profile);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(removeUser());
+    navigate("/");
   };
 
-  console.log(profile);
-  
-
   useEffect(() => {
-    getProfile(user.id)
+    getProfile(user?.id)
       .then((data: any) => {
         dispatch(setProfile(data));
       })
@@ -50,11 +49,14 @@ const ProfileMenu = () => {
       <Menu.Target>
         <div className="flex items-center gap-2 cursor-pointer">
           <div>{user?.name}</div>
-          <Avatar src={
-               profile.picture && atob(profile.picture) !== "null"
-               ? `data:image/jpeg;base64, ${profile.picture}`
-               : "/avatar.png"
-            } alt="it is me" />
+          <Avatar
+            src={
+              profile?.picture && atob(profile?.picture) !== "null"
+                ? `data:image/jpeg;base64, ${profile?.picture}`
+                : "/avatar.png"
+            }
+            alt="it is me"
+          />
         </div>
       </Menu.Target>
 

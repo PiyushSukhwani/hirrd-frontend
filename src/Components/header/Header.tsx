@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProfile } from "../../Services/ProfileService";
 import { setProfile } from "../../Slices/ProfileSlice";
+import NotificationMenu from "./NotificationMenu";
 
 const Header = () => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getProfile(user.profileId)
+    getProfile(user?.profileId)
       .then((res) => {
         dispatch(setProfile(res));
       })
@@ -39,11 +40,7 @@ const Header = () => {
             </Button>
           </Link>
         )}
-        <div className="bg-mine-shaft-900 p-1.5 rounded-full">
-          <Indicator color="brightSun.4" offset={5} size={7} processing>
-            <IconBell stroke={1.5} />
-          </Indicator>
-        </div>
+        {user && <NotificationMenu />}
       </div>
     </div>
   ) : (
