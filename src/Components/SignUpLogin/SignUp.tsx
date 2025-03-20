@@ -157,7 +157,7 @@ const SignUp = () => {
           value={data.confirmPassword}
           onChange={handleChange}
           withAsterisk
-          onPaste={(e)=> e.preventDefault()}
+          onPaste={(e) => e.preventDefault()}
         />
         <Radio.Group
           value={data.accountType}
@@ -170,13 +170,17 @@ const SignUp = () => {
               className="px-6 py-4 hover:bg-mine-shaft-900 border has-[:checked]:bg-bright-sun-400/5 border-mine-shaft-800 rounded-lg has-[:checked]:border-bright-sun-400 "
               value="APPLICANT"
               label="Applicant"
-              autoContrast
+              styles={{
+                icon: { color: "var(--mantine-color-black)" },
+              }}
             />
             <Radio
               className="px-6 py-4 hover:bg-mine-shaft-900 border has-[:checked]:bg-bright-sun-400/5 border-mine-shaft-800 rounded-lg  has-[:checked]:border-bright-sun-400"
               value="EMPLOYER"
               label="Employer"
-              autoContrast
+              styles={{
+                icon: { color: "var(--mantine-color-black)" },
+              }}
             />
           </Group>
         </Radio.Group>

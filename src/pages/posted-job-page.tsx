@@ -14,7 +14,7 @@ const PostedJobPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getJobByPosterId(user.id)
+    getJobByPosterId(user?.id)
       .then((res) => {
         setJobList(res);
         if (res.length > 0 && Number(id) == 0)

@@ -42,7 +42,7 @@ const NotificationMenu = () => {
       <Menu.Target>
         <div className="bg-mine-shaft-900 p-1.5 rounded-full">
           <Indicator
-            disabled={notifications.length <= 0}
+            disabled={notifications?.length <= 0}
             color="brightSun.4"
             offset={5}
             size={7}
@@ -55,7 +55,7 @@ const NotificationMenu = () => {
 
       <Menu.Dropdown onChange={() => setOpened(true)}>
         <div className="flex flex-col gap-1">
-          {notifications.length > 0 ? (
+          {notifications?.length > 0 ? (
             notifications.map((noti: any, index: number) => (
               <Notification
                 onClick={() => {

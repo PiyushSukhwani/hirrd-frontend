@@ -20,7 +20,7 @@ const Jobs = () => {
 
     getAllJobs()
       .then((res) => {
-        setjobList(res.filter((job: any) => job.jobStatus === "ACTIVE"));
+        setjobList(res?.filter((job: any) => job.jobStatus === "ACTIVE"));
       })
       .catch((err) => console.log(err));
   }, []);
@@ -35,13 +35,13 @@ const Jobs = () => {
       );
     } else if (sort == "Salary Low to High") {
       setjobList(() =>
-        [...jobList].sort(
+        [...jobList]?.sort(
           (a: any, b: any) => a.packageOffered - b.packageOffered
         )
       );
     } else if (sort == "Salary High to Low") {
       setjobList(() =>
-        [...jobList].sort(
+        [...jobList]?.sort(
           (a: any, b: any) => b.packageOffered - a.packageOffered
         )
       );

@@ -19,7 +19,7 @@ export function SelectInput(props: any) {
   const exactOptionMatch = data.some((item) => item === search);
   const filteredOptions = exactOptionMatch
     ? data
-    : data.filter((item) =>
+    : data?.filter((item) =>
         item.toLowerCase().includes(search?.toLowerCase().trim())
       );
 
@@ -54,7 +54,7 @@ export function SelectInput(props: any) {
           label={props.label}
           leftSection={<props.leftSection stroke={1.5} />}
           rightSection={<Combobox.Chevron />}
-          value={search}
+          // value={search}
           onChange={(event) => {
             combobox.openDropdown();
             combobox.updateSelectedOptionIndex();

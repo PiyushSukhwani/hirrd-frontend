@@ -27,7 +27,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getProfile(user.id)
+    getProfile(user?.id)
       .then((data: any) => {
         dispatch(setProfile(data));
       })
