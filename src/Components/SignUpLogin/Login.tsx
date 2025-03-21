@@ -5,16 +5,23 @@ import {
   rem,
   TextInput,
 } from "@mantine/core";
-import { IconAt, IconCheck, IconLock, IconX } from "@tabler/icons-react";
+import { IconAt, IconLock } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../Services/UserService";
+// import { loginUser } from "../../Services/UserService";
 import { useState } from "react";
 import { loginValidation } from "../../Services/FormValidation";
-import { notifications } from "@mantine/notifications";
 import { useDisclosure } from "@mantine/hooks";
 import ResetPassword from "./ResetPassword";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../Slices/UserSlice";
+import { setJwt } from "../../Slices/JwtSlice";
+import {
+  ErrorNotification,
+  SuccessNotification,
+} from "../../Services/NotifiationService";
+import { loginUser } from "../../Services/AuthService";
+// import { jwtDecode } from "jwt-decode";
+// import { setUser } from "../../Slices/UserSlice";
+// import axiosInstance from "../../Interceptor/AxiosInterceptor";
 
 const form = {
   email: "",
@@ -50,36 +57,25 @@ const Login = () => {
     if (valid) {
       setLoading(true);
       loginUser(data)
-        .then((res) => {
-          console.log(res);
-          notifications.show({
-            title: "Login Successful",
-            message: "Redirecting to home page...",
-            withCloseButton: true,
-            icon: <IconCheck style={{ width: "90%", height: "90%" }} />,
-            color: "teal",
-            withBorder: true,
-            className: "!border-green-500",
-          });
+        .then((res: any) => {
+          SuccessNotification(
+            "Login Successful",
+            "Redirecting to home page..."
+          );
+          dispatch(setJwt(res.jwt));
+          // const decodedJwt = jwtDecode(res.jwt);
+          // dispatch(setUser({ ...decodedJwt, email: decodedJwt.sub }));
+
           setTimeout(() => {
             setLoading(false);
-            dispatch(setUser(res));
             navigate("/");
-          }, 4000);
+          }, 3000);
           setData(form);
         })
-        .catch((e) => {
+        .catch((e: any) => {
           console.error(e);
           setLoading(false);
-          notifications.show({
-            title: "Login failed",
-            message: e.response.data.errorMessage,
-            withCloseButton: true,
-            icon: <IconX style={{ width: "90%", height: "90%" }} />,
-            color: "red",
-            withBorder: true,
-            className: "!border-red-500 !m-1",
-          });
+          ErrorNotification("Login failed", e.response.data.errorMessage);
         });
     }
   };
@@ -107,13 +103,14 @@ const Login = () => {
         <PasswordInput
           leftSection={<IconLock style={{ width: rem(16), height: rem(16) }} />}
           placeholder="Enter password"
+          type="password"
           label="Password"
           name="password"
           value={data.password}
           error={formError.password}
           onChange={handleChange}
           withAsterisk
-          onPaste={(e)=> e.preventDefault()}
+          onPaste={(e) => e.preventDefault()}
         />
         <Button
           loading={loading}
