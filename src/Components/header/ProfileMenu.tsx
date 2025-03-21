@@ -11,9 +11,9 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { removeUser } from "../../Slices/UserSlice";
 import { getProfile } from "../../Services/ProfileService";
 import { setProfile } from "../../Slices/ProfileSlice";
+import { navigateToLogin } from "../../Services/AuthService";
 
 const ProfileMenu = () => {
   const [checked, setChecked] = useState(false);
@@ -24,8 +24,7 @@ const ProfileMenu = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(removeUser());
-    navigate("/");
+    navigateToLogin(navigate)
   };
 
   useEffect(() => {
