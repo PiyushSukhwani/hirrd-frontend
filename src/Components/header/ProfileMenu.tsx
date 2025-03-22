@@ -24,15 +24,16 @@ const ProfileMenu = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigateToLogin(navigate)
+    navigateToLogin(navigate, dispatch);
   };
 
   useEffect(() => {
-    getProfile(user?.id)
-      .then((data: any) => {
-        dispatch(setProfile(data));
-      })
-      .catch((err) => console.error(err));
+    if (user)
+      getProfile(user?.id)
+        .then((data: any) => {
+          dispatch(setProfile(data));
+        })
+        .catch((err) => console.error(err));
   }, []);
 
   return (

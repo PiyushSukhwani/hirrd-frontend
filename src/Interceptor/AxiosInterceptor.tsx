@@ -1,4 +1,5 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
+import { navigateToLogin } from "../Services/AuthService";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8080",
@@ -18,14 +19,18 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-export const setupResponseInterceptor = (navigate: any) => {
+export const setupResponseInterceptor = (
+  navigate: any,
+  dispatch: any,
+) => {
   axiosInstance.interceptors.response.use(
     (response) => {
       return response;
     },
     (error) => {
-      if (error.response?.status == 401) {
-        navigate("/login");
+      const storedToken = localStorage.getItem("token")
+      if (error.response?.status == 401 && storedToken != null) {
+        navigateToLogin(navigate, dispatch);
       }
       return Promise.reject(error);
     }

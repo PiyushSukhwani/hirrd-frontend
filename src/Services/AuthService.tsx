@@ -1,4 +1,6 @@
 import axios from "axios";
+import { removeJwt } from "../Slices/JwtSlice";
+import { removeUser } from "../Slices/UserSlice";
 const base_url = "http://localhost:8080/auth/";
 
 const loginUser = async (login: any) => {
@@ -11,9 +13,9 @@ const loginUser = async (login: any) => {
     });
 };
 
-const navigateToLogin = (navigate: any) => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+const navigateToLogin = async (navigate: any, dispatch:any) => {
+  await dispatch(removeJwt())
+  await dispatch(removeUser())
   navigate("/login");
 };
 
