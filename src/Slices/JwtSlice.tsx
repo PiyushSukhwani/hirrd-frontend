@@ -6,14 +6,16 @@ const jwtSlice = createSlice({
   reducers: {
     setJwt: (state, action) => {
       localStorage.setItem("token", action.payload);
-      return (state = action.payload);
+      state = action.payload;
+      return state;
     },
     removeJwt: (state) => {
       localStorage.removeItem("token");
-      return (state = "");
+      state = "";
+      return state;
     },
   },
 });
 
 export default jwtSlice.reducer;
-export const {setJwt, removeJwt} = jwtSlice.actions
+export const { setJwt, removeJwt } = jwtSlice.actions;

@@ -14,6 +14,7 @@ import { useForm } from "@mantine/form";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { SuccessNotification } from "../../Services/NotifiationService";
+import { updateProfile } from "../../Services/ProfileService";
 
 const Info = () => {
   const select = fields;
@@ -41,10 +42,11 @@ const Info = () => {
     initialValues: { jobTitle: "", company: "", location: "", totalExp: 0 },
   });
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setEdit(false);
     let updatedProfile = { ...profile, ...form.getValues() };
-    dispatch(changeProfile(updatedProfile));
+    let newProfile = await updateProfile(updatedProfile);
+    dispatch(changeProfile(newProfile));
     SuccessNotification("Success", "Profile Updated Successfully");
   };
 
