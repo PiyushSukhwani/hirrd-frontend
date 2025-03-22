@@ -1,5 +1,5 @@
 import { ActionIcon } from "@mantine/core";
-import { IconBookmark, IconExternalLink } from "@tabler/icons-react";
+import { IconExternalLink } from "@tabler/icons-react";
 
 const CompanyCard = (props: any) => {
   return (
@@ -14,11 +14,8 @@ const CompanyCard = (props: any) => {
             <div className="text-xs text-mine-shaft-300">{props.employees}</div>
           </div>
         </div>
-        <ActionIcon
-          color="brightSun.4"
-          variant="subtle"
-        >
-          <IconExternalLink/>
+        <ActionIcon color="brightSun.4" variant="subtle">
+          <IconExternalLink />
         </ActionIcon>
       </div>
     </div>

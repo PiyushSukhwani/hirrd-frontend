@@ -12,11 +12,12 @@ const NotificationMenu = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getNoti(user?.id)
-      .then((res) => {
-        setNotifications(res);
-      })
-      .catch((err) => console.log(err));
+    if (user)
+      getNoti(user?.id)
+        .then((res) => {
+          setNotifications(res);
+        })
+        .catch((err) => console.log(err));
   }, [user]);
 
   const unRead = (index: number) => {
@@ -24,9 +25,7 @@ const NotificationMenu = () => {
     notis = notis.filter((_: any, i: number) => i != index);
     setNotifications(notis);
 
-    readNoti(notifications[index].id)
-      .then((res) => console.log(res))
-      .catch((e) => console.error(e));
+    readNoti(notifications[index].id).catch((e) => console.error(e));
   };
 
   return (

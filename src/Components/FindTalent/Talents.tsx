@@ -26,11 +26,11 @@ const Talents = () => {
   useEffect(() => {
     if (sort == "Experience: Low to High") {
       setTalents(() =>
-        [...talents].sort((a: any, b: any) => a.totalExp - b.totalExp)
+        [...talents]?.sort((a: any, b: any) => a.totalExp - b.totalExp)
       );
     } else {
       setTalents(() =>
-        [...talents].sort((a: any, b: any) => b.totalExp - a.totalExp)
+        [...talents]?.sort((a: any, b: any) => b.totalExp - a.totalExp)
       );
     }
   }, [sort]);
@@ -39,13 +39,13 @@ const Talents = () => {
     let filterTalent = talents;
 
     if (filter.name) {
-      filterTalent = filterTalent.filter((talent: any) =>
+      filterTalent = filterTalent?.filter((talent: any) =>
         talent.name.toLowerCase().includes(filter.name.toLowerCase())
       );
     }
 
     if (filter["Job Title"] && filter["Job Title"].length > 0) {
-      filterTalent = filterTalent.filter((talent: any) =>
+      filterTalent = filterTalent?.filter((talent: any) =>
         filter["Job Title"]?.some((title: any) =>
           talent.jobTitle.toLowerCase().includes(title.toLowerCase())
         )
@@ -53,7 +53,7 @@ const Talents = () => {
     }
 
     if (filter.Location && filter.Location.length > 0) {
-      filterTalent = filterTalent.filter((talent: any) =>
+      filterTalent = filterTalent?.filter((talent: any) =>
         filter.Location.some((location: string) =>
           talent.location.toLowerCase().includes(location.toLowerCase())
         )
@@ -61,7 +61,7 @@ const Talents = () => {
     }
 
     if (filter.Skills && filter.Skills.length > 0) {
-      filterTalent = filterTalent.filter((talent: any) =>
+      filterTalent = filterTalent?.filter((talent: any) =>
         filter.Skills.some((filterSkill: any) =>
           talent?.skills.some(
             (skill: any) => skill.toLowerCase() === filterSkill.toLowerCase()
@@ -71,7 +71,7 @@ const Talents = () => {
     }
 
     if (filter.exp && filter.exp?.length > 0) {
-      filterTalent = filterTalent.filter(
+      filterTalent = filterTalent?.filter(
         (talent: any) =>
           talent.totalExp >= filter.exp[0] && talent.totalExp <= filter.exp[1]
       );
@@ -90,7 +90,7 @@ const Talents = () => {
         {filteredTalents.length ? (
           filteredTalents.map(
             (talent: any, index: number) =>
-              talent.id != profile.id && <TalentCard {...talent} key={index} />
+              talent.id != profile?.id && <TalentCard {...talent} key={index} />
           )
         ) : (
           <div className="text-bright-sun-400 font-semibold text-3xl">

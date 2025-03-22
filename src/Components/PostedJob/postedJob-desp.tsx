@@ -69,7 +69,7 @@ const PostedJobDesc = (props: any) => {
 
               <Tabs.Panel value="applicants">
                 <div className="mt-10 flex flex-wrap gap-5 justify-around">
-                  {arr.length ? (
+                  {arr?.length ? (
                     arr
                       .slice(0, 6)
                       ?.map((talent: any, index: number) => (
@@ -83,7 +83,7 @@ const PostedJobDesc = (props: any) => {
 
               <Tabs.Panel value="interviewing">
                 <div className="mt-10 flex flex-wrap gap-5 justify-around">
-                  {arr.length ? (
+                  {arr?.length ? (
                     arr
                       .slice(0, 6)
                       ?.map((talent: any, index: number) => (
@@ -99,7 +99,7 @@ const PostedJobDesc = (props: any) => {
 
               <Tabs.Panel value="offered">
                 <div className="mt-10 flex flex-wrap gap-5 justify-around">
-                  {arr.length ? (
+                  {arr?.length ? (
                     arr
                       .slice(0, 6)
                       ?.map((talent: any, index: number) => (
@@ -115,7 +115,7 @@ const PostedJobDesc = (props: any) => {
 
               <Tabs.Panel value="rejected">
                 <div className="mt-10 flex flex-wrap gap-5 justify-around">
-                  {arr.length ? (
+                  {arr?.length ? (
                     arr
                       .slice(0, 6)
                       ?.map((talent: any, index: number) => (

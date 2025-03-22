@@ -28,7 +28,7 @@ const Jobs = () => {
   useEffect(() => {
     if (sort === "Most Recent") {
       setjobList((jobList) =>
-        [...jobList].sort(
+        [...jobList]?.sort(
           (a: any, b: any) =>
             new Date(b.postTime).getTime() - new Date(a.postTime).getTime()
         )
@@ -52,14 +52,14 @@ const Jobs = () => {
     let filterJobs = jobList;
 
     if (filter["Job Title"] && filter["Job Title"].length > 0) {
-      filterJobs = filterJobs.filter((job: any) =>
+      filterJobs = filterJobs?.filter((job: any) =>
         filter["Job Title"]?.some((title: any) =>
           job.jobTitle.toLowerCase().includes(title.toLowerCase())
         )
       );
     }
     if (filter["Job Type"] && filter["Job Type"].length > 0) {
-      filterJobs = filterJobs.filter((job: any) =>
+      filterJobs = filterJobs?.filter((job: any) =>
         filter["Job Type"]?.some((title: any) =>
           job.jobType.toLowerCase().includes(title.toLowerCase())
         )
@@ -67,7 +67,7 @@ const Jobs = () => {
     }
 
     if (filter.Location && filter.Location.length > 0) {
-      filterJobs = filterJobs.filter((job: any) =>
+      filterJobs = filterJobs?.filter((job: any) =>
         filter.Location.some((location: string) =>
           job.location.toLowerCase().includes(location.toLowerCase())
         )
@@ -75,7 +75,7 @@ const Jobs = () => {
     }
 
     if (filter.Experience && filter.Experience.length > 0) {
-      filterJobs = filterJobs.filter((job: any) =>
+      filterJobs = filterJobs?.filter((job: any) =>
         filter.Experience.some((filterExp: any) =>
           job?.experience.toLowerCase().includes(filterExp.toLowerCase())
         )

@@ -22,7 +22,7 @@ const JobDesc = (props: any) => {
   const [applied, setApplied] = useState(false);
 
   const handleSaveJob = () => {
-    let savedJobs: any[] = Array.isArray(profile.savedJobs)
+    let savedJobs: any[] = Array.isArray(profile?.savedJobs)
       ? [...profile.savedJobs]
       : [];
 

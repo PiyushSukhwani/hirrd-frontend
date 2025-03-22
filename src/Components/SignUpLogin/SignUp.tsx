@@ -9,13 +9,15 @@ import {
   rem,
   TextInput,
 } from "@mantine/core";
-import { IconAt, IconCheck, IconLock } from "@tabler/icons-react";
+import { IconAt, IconLock } from "@tabler/icons-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../Services/UserService";
 import { SignupValidation } from "../../Services/FormValidation";
-import { notifications } from "@mantine/notifications";
-import { ErrorNotification } from "../../Services/NotifiationService";
+import {
+  ErrorNotification,
+  SuccessNotification,
+} from "../../Services/NotifiationService";
 
 const form = {
   name: "",
@@ -78,18 +80,12 @@ const SignUp = () => {
     if (valid) {
       setLoading(true);
       registerUser(data)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           setData(form);
-          notifications.show({
-            title: "Registered Successfully",
-            message: "Redirecting to login page...",
-            withCloseButton: true,
-            icon: <IconCheck style={{ width: "90%", height: "90%" }} />,
-            color: "teal",
-            withBorder: true,
-            className: "!border-green-500",
-          });
+          SuccessNotification(
+            "Registered Successfully",
+            "Redirecting to login page..."
+          );
           setTimeout(() => {
             setLoading(false);
             navigate("/login");

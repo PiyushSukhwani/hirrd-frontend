@@ -1,5 +1,5 @@
-import { Avatar, Button, Divider, Tabs } from "@mantine/core";
-import { IconBriefcase, IconMapPin } from "@tabler/icons-react";
+import { Avatar, Divider, Tabs } from "@mantine/core";
+import {  IconMapPin } from "@tabler/icons-react";
 import AboutComp from "./about-comp";
 import CompanyJobs from "./company-jobs";
 import CompanyEmployees from "./company-employees";

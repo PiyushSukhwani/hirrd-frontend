@@ -82,7 +82,7 @@ const ResetPassword = (props: any) => {
 
   const handleResetPassword = async () => {
     try {
-      const res = await changePass(email, password);
+      await changePass(email, password);
       SuccessNotification("Password Changed", "Login with new password.");
       props.close();
     } catch (err: any) {
