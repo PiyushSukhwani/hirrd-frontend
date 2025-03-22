@@ -1,6 +1,7 @@
+import axios from "axios";
 import axiosInstance from "../Interceptor/AxiosInterceptor";
 
-// const base_url = "http://localhost:8080/users/";
+const base_url = "http://localhost:8080/users/";
 
 const registerUser = async (user: any) => {
   return axiosInstance
@@ -37,8 +38,8 @@ const verifyOtp = async (email: string, otp: any) => {
     });
 };
 const changePass = async (email: string, password: string) => {
-  return axiosInstance
-    .post(`/users/changePass`, { email, password })
+  return axios
+    .post(`${base_url}changePass`, { email, password })
     .then((res) => res.data)
     .catch((error) => {
       throw error;

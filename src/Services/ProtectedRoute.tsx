@@ -12,6 +12,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   allowedRoles,
 }) => {
   const token = useSelector((state: any) => state.jwt);
+  
   if (!token) {
     return <Navigate to="/login" />;
   }

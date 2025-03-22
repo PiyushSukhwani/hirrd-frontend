@@ -49,14 +49,35 @@ const AppRoutes = () => {
           <Route
             path="/job-history"
             element={
-              <ProtectedRoute allowedRoles={["APPLICANT"]}>
+              <ProtectedRoute>
                 <JobHistoryPage />
               </ProtectedRoute>
             }
           />
-          <Route path="/company/:name" element={<CompanyPage />} />
-          <Route path="/apply-job/:id" element={<ApplyJobPage />} />
-          <Route path="/jobs/:id" element={<JobDescPage />} />
+          <Route
+            path="/company/:name"
+            element={
+              <ProtectedRoute>
+                <CompanyPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/apply-job/:id"
+            element={
+              <ProtectedRoute>
+                <ApplyJobPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/jobs/:id"
+            element={
+              <ProtectedRoute>
+                <JobDescPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/post-job/:id"
             element={
@@ -73,10 +94,38 @@ const AppRoutes = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/talent-profile/:id" element={<TalentProfile />} />
-          <Route path="/find-talent" element={<FindTalent />} />
-          <Route path="/find-jobs" element={<FindJobs />} />
-          <Route path="*" element={<HomePage />} />
+          <Route
+            path="/talent-profile/:id"
+            element={
+              <ProtectedRoute>
+                <TalentProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/find-talent"
+            element={
+              <ProtectedRoute>
+                <FindTalent />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/find-jobs"
+            element={
+              <ProtectedRoute>
+                <FindJobs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </div>

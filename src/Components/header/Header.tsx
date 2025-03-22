@@ -19,8 +19,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setupResponseInterceptor(navigate);
-  }, [navigate]);
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setupResponseInterceptor(navigate, dispatch);
+    }
+  }, [navigate, token]);
 
   useEffect(() => {
     if (token != "") {
@@ -28,6 +31,7 @@ const Header = () => {
       dispatch(setUser({ ...decodedJwt, email: decodedJwt.sub }));
     }
 
+    if (user && token)
     getProfile(user?.profileId)
       .then((res) => {
         dispatch(setProfile(res));
