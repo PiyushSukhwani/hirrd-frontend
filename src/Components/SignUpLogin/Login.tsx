@@ -75,7 +75,10 @@ const Login = () => {
         .catch((e: any) => {
           console.error(e);
           setLoading(false);
+          if (e?.response?.data?.errorMessage)
           ErrorNotification("Login failed", e.response.data.errorMessage);
+        else
+        ErrorNotification("Login failed", e.message);
         });
     }
   };
