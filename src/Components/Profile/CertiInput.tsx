@@ -6,6 +6,7 @@ import { isNotEmpty, useForm } from "@mantine/form";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { SuccessNotification } from "../../Services/NotifiationService";
+import { updateProfile } from "../../Services/ProfileService";
 
 const CertiInput = (props: any) => {
   const select = fields;
@@ -29,7 +30,7 @@ const CertiInput = (props: any) => {
     },
   });
 
-  const handleSave = () => {
+  const handleSave = async () => {
     form.validate();
     if (!form.isValid) return;
 
@@ -38,12 +39,10 @@ const CertiInput = (props: any) => {
     certi[certi.length - 1].issueDate =
       certi[certi.length - 1].issueDate.toISOString();
     let updatedProfile = { ...profile, certifications: certi };
-    dispatch(changeProfile(updatedProfile));
-    props.setEdit(false)
-    SuccessNotification(
-      "Success",
-      `Certification Added Successfully`
-    );
+    let newProfile = await updateProfile(updatedProfile);
+    dispatch(changeProfile(newProfile));
+    props.setEdit(false);
+    SuccessNotification("Success", `Certification Added Successfully`);
   };
 
   return (

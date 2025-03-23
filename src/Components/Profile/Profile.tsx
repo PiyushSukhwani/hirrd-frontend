@@ -1,6 +1,6 @@
 import { Avatar, Divider, FileInput, Overlay } from "@mantine/core";
 import { useEffect } from "react";
-import { getProfile } from "../../Services/ProfileService";
+import { getProfile, updateProfile } from "../../Services/ProfileService";
 import { useDispatch, useSelector } from "react-redux";
 import Info from "./Info";
 import { changeProfile, setProfile } from "../../Slices/ProfileSlice";
@@ -22,7 +22,8 @@ const Profile = () => {
   const handleFileChange = async (image: any) => {
     let picture: any = await getBase64(image);
     let updatedPicture = { ...profile, picture: picture.split(",")[1] };
-    dispatch(changeProfile(updatedPicture));
+    let newProfile = await updateProfile(updatedPicture);
+    dispatch(changeProfile(newProfile));
     SuccessNotification("Success", "Profile picture updated successfully");
   };
 
@@ -45,8 +46,8 @@ const Profile = () => {
           <Avatar
             src={
               profile.picture && atob(profile.picture) !== "null"
-    ? `data:image/jpeg;base64, ${profile.picture}`
-    : "/avatar.png"
+                ? `data:image/jpeg;base64, ${profile.picture}`
+                : "/avatar.png"
             }
             alt="banner"
             className="rounded-full !h-48 !w-48 border-mine-shaft-950 border-8"

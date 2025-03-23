@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { SuccessNotification } from "../../Services/NotifiationService";
+import { updateProfile } from "../../Services/ProfileService";
 
 const ExpInput = (props: any) => {
   const select = fields;
@@ -33,7 +34,7 @@ const ExpInput = (props: any) => {
     },
   });
 
-  const handleSave = () => {
+  const handleSave = async () => {
     form.validate();
     if (!form.isValid()) return;
 
@@ -51,8 +52,9 @@ const ExpInput = (props: any) => {
 
     let updatedProfile = { ...profile, experiences: exp };
     props.setEdit(false);
-    props.setAllEdit(false)
-    dispatch(changeProfile(updatedProfile));
+    props.setAllEdit(false);
+    let newProfile = await updateProfile(updatedProfile);
+    dispatch(changeProfile(newProfile));
     SuccessNotification(
       "Success",
       `Experience ${props.add ? "Added" : "Updated"} Successfully`

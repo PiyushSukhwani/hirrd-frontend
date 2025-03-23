@@ -2,7 +2,8 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 import { navigateToLogin } from "../Services/AuthService";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
+  // baseURL: "http://localhost:8080",
 });
 
 axiosInstance.interceptors.request.use(

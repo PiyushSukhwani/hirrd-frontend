@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SuccessNotification } from "../../Services/NotifiationService";
 import { changeProfile } from "../../Slices/ProfileSlice";
+import { updateProfile } from "../../Services/ProfileService";
 
 const Skills = () => {
   const [edit, setEdit] = useState(false);
@@ -20,8 +21,9 @@ const Skills = () => {
     }
   };
 
-  const handleSave = () => {
-    dispatch(changeProfile({ ...profile, skills: skills }));
+  const handleSave = async () => {
+    let newProfile = await updateProfile({ ...profile, skills: skills });
+    dispatch(changeProfile(newProfile));
     SuccessNotification("Success", "Skills updated successfully!");
     setEdit(false);
   };

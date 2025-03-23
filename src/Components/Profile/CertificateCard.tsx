@@ -4,18 +4,19 @@ import { formatDate } from "../../Services/Utilities";
 import { SuccessNotification } from "../../Services/NotifiationService";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { updateProfile } from "../../Services/ProfileService";
 
 const CertificateCard = (props: any) => {
-
   const dispatch = useDispatch();
   const profile = useSelector((state: any) => state.profile);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     let certi = [...profile.certifications];
     certi.splice(props.index, 1);
     let updatedProfile = { ...profile, certifications: certi };
     // props.edit(false);
-    dispatch(changeProfile(updatedProfile));
+    let newProfile = await updateProfile(updatedProfile);
+    dispatch(changeProfile(newProfile));
     SuccessNotification("Success", "Certificate Deleted Successfully");
   };
 
@@ -40,7 +41,12 @@ const CertificateCard = (props: any) => {
           </div>
         </div>
         {props.edit && (
-          <ActionIcon size={"lg"} color="red.8" variant="subtle" onClick={handleDelete}>
+          <ActionIcon
+            size={"lg"}
+            color="red.8"
+            variant="subtle"
+            onClick={handleDelete}
+          >
             <IconTrash className="h-4/5 w-4/5" stroke={1.5} />
           </ActionIcon>
         )}

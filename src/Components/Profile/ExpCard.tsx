@@ -5,18 +5,20 @@ import { formatDate } from "../../Services/Utilities";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { SuccessNotification } from "../../Services/NotifiationService";
+import { updateProfile } from "../../Services/ProfileService";
 
 const ExpCard = (props: any) => {
   const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
   const profile = useSelector((state: any) => state.profile);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     let exp = [...profile.experiences];
     exp.splice(props.index, 1);
     let updatedProfile = { ...profile, experiences: exp };
+    let newProfile = await updateProfile(updatedProfile);
     props.setAllEdit(false);
-    dispatch(changeProfile(updatedProfile));
+    dispatch(changeProfile(newProfile));
     SuccessNotification("Success", "Experience Deleted Successfully");
   };
 
