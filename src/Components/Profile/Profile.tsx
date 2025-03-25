@@ -22,9 +22,9 @@ const Profile = () => {
   const handleFileChange = async (image: any) => {
     let picture: any = await getBase64(image);
     let updatedPicture = { ...profile, picture: picture.split(",")[1] };
-    let newProfile = await updateProfile(updatedPicture);
-    dispatch(changeProfile(newProfile));
+    dispatch(changeProfile(updatedPicture));
     SuccessNotification("Success", "Profile picture updated successfully");
+    await updateProfile(updatedPicture);
   };
 
   useEffect(() => {
