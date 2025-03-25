@@ -15,9 +15,9 @@ const CertificateCard = (props: any) => {
     certi.splice(props.index, 1);
     let updatedProfile = { ...profile, certifications: certi };
     // props.edit(false);
-    let newProfile = await updateProfile(updatedProfile);
-    dispatch(changeProfile(newProfile));
+    dispatch(changeProfile(updatedProfile));
     SuccessNotification("Success", "Certificate Deleted Successfully");
+    await updateProfile(updatedProfile);
   };
 
   return (

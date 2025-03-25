@@ -45,9 +45,9 @@ const Info = () => {
   const handleSave = async () => {
     setEdit(false);
     let updatedProfile = { ...profile, ...form.getValues() };
-    let newProfile = await updateProfile(updatedProfile);
-    dispatch(changeProfile(newProfile));
+    dispatch(changeProfile(updatedProfile));
     SuccessNotification("Success", "Profile Updated Successfully");
+    await updateProfile(updatedProfile);
   };
 
   return (

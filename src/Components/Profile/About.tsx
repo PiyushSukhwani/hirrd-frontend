@@ -22,10 +22,10 @@ const About = () => {
   };
 
   const handleSave = async () => {
-    let updatedProfile = await updateProfile({ ...profile, about: about });
-    dispatch(changeProfile(updatedProfile));
+    dispatch(changeProfile({ ...profile, about: about }));
     SuccessNotification("Success", "About updated successfully!");
     setEdit(false);
+    await updateProfile({ ...profile, about: about });
   };
 
   return (

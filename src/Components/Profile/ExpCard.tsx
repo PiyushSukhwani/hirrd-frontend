@@ -16,10 +16,10 @@ const ExpCard = (props: any) => {
     let exp = [...profile.experiences];
     exp.splice(props.index, 1);
     let updatedProfile = { ...profile, experiences: exp };
-    let newProfile = await updateProfile(updatedProfile);
     props.setAllEdit(false);
-    dispatch(changeProfile(newProfile));
+    dispatch(changeProfile(updatedProfile));
     SuccessNotification("Success", "Experience Deleted Successfully");
+    await updateProfile(updatedProfile);
   };
 
   return !edit ? (

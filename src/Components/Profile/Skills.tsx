@@ -22,10 +22,10 @@ const Skills = () => {
   };
 
   const handleSave = async () => {
-    let newProfile = await updateProfile({ ...profile, skills: skills });
-    dispatch(changeProfile(newProfile));
+    dispatch(changeProfile({ ...profile, skills: skills }));
     SuccessNotification("Success", "Skills updated successfully!");
     setEdit(false);
+    await updateProfile({ ...profile, skills: skills });
   };
 
   return (

@@ -65,7 +65,16 @@ const PostJob = () => {
     form.validate();
     if (!form.isValid()) return;
 
-    postJob({ ...form.getValues(), posterId: profile.id, jobStatus: "ACTIVE", id: 0 })
+    SuccessNotification(
+      "Processing",
+      "Your job posting is currently being processed. Please wait..."
+    );
+    postJob({
+      ...form.getValues(),
+      posterId: profile.id,
+      jobStatus: "ACTIVE",
+      id: 0,
+    })
       .then((res: any) => {
         SuccessNotification("Success", "Job Posted Successfully");
         navigate(`/posted-job/${res.id}`);
