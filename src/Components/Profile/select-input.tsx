@@ -7,13 +7,15 @@ export function SelectInput(props: any) {
   });
 
   const [data, setData] = useState<string[]>([]);
-  const [value, setValue] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(
+    props.form.getValues()[props.name] || ""
+  );
+  const [value, setValue] = useState(props.form.getValues()[props.name] || "");
 
   useEffect(() => {
     setData(props.options);
-    setValue(props.form.getInputProps(props.name).value);
-    setSearch(props.form.getInputProps(props.name).value);
+    setValue(props.form.getValues()[props.name] || "");
+    setSearch(props.form.getValues()[props.name] || "");
   }, []);
 
   const exactOptionMatch = data.some((item) => item === search);
@@ -36,12 +38,12 @@ export function SelectInput(props: any) {
       onOptionSubmit={(val) => {
         if (val === "$create") {
           setData((current) => [...current, search]);
-          setValue(search);
-          props.form.setFieldValue(props.name, search);
+          setValue(search || ""); // Ensure it's never undefined
+          props.form.setFieldValue(props.name, search || "");
         } else {
-          setValue(val);
-          setSearch(val);
-          props.form.setFieldValue(props.name, val);
+          setValue(val || ""); // Ensure it's never undefined
+          setSearch(val || ""); // Ensure it's never undefined
+          props.form.setFieldValue(props.name, val || "");
         }
 
         combobox.closeDropdown();
@@ -49,12 +51,11 @@ export function SelectInput(props: any) {
     >
       <Combobox.Target>
         <InputBase
-          {...props.form.getInputProps(props.name)}
           withAsterisk
           label={props.label}
           leftSection={<props.leftSection stroke={1.5} />}
           rightSection={<Combobox.Chevron />}
-          // value={search}
+          value={search}
           onChange={(event) => {
             combobox.openDropdown();
             combobox.updateSelectedOptionIndex();

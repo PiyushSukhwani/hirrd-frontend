@@ -32,6 +32,7 @@ const Info = () => {
         location: profile.location,
         totalExp: profile.totalExp,
       });
+      form.getValues()
     } else {
       setEdit(false);
     }
