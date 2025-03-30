@@ -52,13 +52,13 @@ const ExpInput = (props: any) => {
 
     let updatedProfile = { ...profile, experiences: exp };
     props.setEdit(false);
-    props.setAllEdit(false);
-    let newProfile = await updateProfile(updatedProfile);
-    dispatch(changeProfile(newProfile));
+    // props.setAllEdit(false);
+    dispatch(changeProfile(updatedProfile));
     SuccessNotification(
       "Success",
       `Experience ${props.add ? "Added" : "Updated"} Successfully`
     );
+    await updateProfile(updatedProfile);
   };
 
   useEffect(() => {

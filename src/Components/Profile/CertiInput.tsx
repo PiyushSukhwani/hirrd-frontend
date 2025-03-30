@@ -32,17 +32,26 @@ const CertiInput = (props: any) => {
 
   const handleSave = async () => {
     form.validate();
-    if (!form.isValid) return;
+
+    if (!form.isValid()) return;
 
     let certi = [...profile.certifications];
-    certi.push(form.getValues());
-    certi[certi.length - 1].issueDate =
-      certi[certi.length - 1].issueDate.toISOString();
+    let newCertification = form.getValues();
+
+    if (
+      newCertification.issueDate &&
+      !(newCertification.issueDate instanceof Date)
+    ) {
+      newCertification.issueDate = new Date(newCertification.issueDate);
+    }
+
+    certi.push(newCertification);
     let updatedProfile = { ...profile, certifications: certi };
-    let newProfile = await updateProfile(updatedProfile);
-    dispatch(changeProfile(newProfile));
+
+    dispatch(changeProfile(updatedProfile));
     props.setEdit(false);
-    SuccessNotification("Success", `Certification Added Successfully`);
+    SuccessNotification("Success", "Certification Added Successfully");
+    await updateProfile(updatedProfile);
   };
 
   return (
